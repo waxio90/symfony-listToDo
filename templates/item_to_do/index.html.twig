@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ItemToDO{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>ItemToDO</h1>
+
+    <div>
+        <form method="post" action="{{ path('app-item-set-done', {'user': app.user.id, 'listToDo': list.list_id}) }}">
+            {% for item in items %}
+                    <div>
+                        <span>
+                            <input type="checkbox" name="item_{{ item.id }}" title="wykonane" {% if item.done %}checked{% endif %}>
+                            {{ item.name }}
+                        </span>
+                    </div>
+            {% endfor %}
+            <button type="submit">Zapisz</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

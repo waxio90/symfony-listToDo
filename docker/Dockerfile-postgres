@@ -1,0 +1,10 @@
+# Dockerfile
+
+FROM postgres:15
+
+# Set environment variables
+ENV POSTGRES_USER=user
+ENV POSTGRES_PASSWORD=password
+ENV POSTGRES_DB=app
+
+EXPOSE 5432

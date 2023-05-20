@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Strona Główna{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>List TODO</h1>
+    {% if app.user %}
+        <ul>
+            <li>Przejdź do listy TODO: <code><a href="{{ app.user.id }}{{ '/lists'}}">lista TODO</a></code></li>
+            <li>Wyloguj się: <code><a href="{{ '/logout' }}">wyloguj</a></code></li>
+        </ul>
+    {% else %}
+        Aby przejść dalej:
+        <ul>
+            <li>Zaloguj się: <code><a href="{{ '/login' }}">logowanie</a></code></li>
+            <li>Zarejestruj się: <code><a href="{{ '/register' }}">rejestracja</a></code></li>
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}

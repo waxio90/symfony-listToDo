@@ -1,0 +1,38 @@
+# Dockerfile-php
+
+FROM php:8.2-fpm
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    unzip \
+    git \
+    curl
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install extensions
+RUN apt-get update && apt-get install -y libpq-dev libzip-dev \
+    && docker-php-ext-install pdo_pgsql mbstring \
+    && pecl install zip \
+    && docker-php-ext-enable zip \
+    && docker-php-ext-install exif pcntl
+
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www
+
+CMD ["php-fpm"]
+
+EXPOSE 9000
